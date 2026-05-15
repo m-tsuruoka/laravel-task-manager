@@ -6,6 +6,9 @@ Route::view('/', 'welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::view('/tasks', 'tasks.index')
+    ->name('tasks.index');
 });
+
 
 require __DIR__.'/settings.php';
