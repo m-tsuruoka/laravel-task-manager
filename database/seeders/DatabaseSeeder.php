@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         TaskSeeder::class;
+         $this->call(TaskSeeder::class);
 
         User::factory()->create([
             'name' => 'Test User',

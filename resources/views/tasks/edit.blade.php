@@ -12,6 +12,7 @@
         type="text"
         name="title"
         value="{{ old('title', $task->title)}}"
+        required
     >
 
     <br>
