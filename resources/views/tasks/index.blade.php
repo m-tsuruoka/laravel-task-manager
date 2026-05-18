@@ -1,14 +1,14 @@
 <x-layouts::app :title="__('tasks.index')">
-    <h1>タスク管理</h1>
+    <h1 class="flex justify-center text-2xl pb-5 font-bold">タスク管理</h1>
 
-    <div>
-        <p>追加フォーム</p>
+    <div  class="border p-5">
+        <p class="font-bold">追加フォーム</p>
         <form action="{{ route('tasks.store') }}" method="POST">
             @csrf
 
             <label>タスク名：</label>
             <input
-                style="border: 1px solid #000;"
+                class="border border-gray-300 p-2 rounded mb-2"
                 type="text"
                 name="title">
 
@@ -16,21 +16,39 @@
 
             <label>詳細　　：</label>
             <input
-                style="border: 1px solid #000;"
+                class="border border-gray-300 p-2 rounded mb-2"
                 type="text"
                 name="description"><br>
             <label>ステータス</label>
-            <select name="status">
+            <select class="border border-gray-300 rounded px-3 py-2 mr-2" name="status">
                 <option value="0">未着手</option>
                 <option value="1">進行中</option>
                 <option value="2">完了</option>
             </select>
 
-            <button type="submit">登録</button>
+            <button class="bg-green-500 text-white px-3 py-2 rounded" #000;" type="submit">登録</button>
+        </form>
+    </div>
+
+    <div class="border p-5 mt-5">
+        <p class="font-bold">検索</p>
+        <form action="">
+            <input class="border border-gray-300 p-2 rounded" type="text"
+        name="keyword"
+        value="{{ request('keyword') }}"
+        placeholder="キーワード検索"placeholder="検索キーワード">
+
+            <select class="border border-gray-300 rounded px-3 py-2" name="status">
+                <option value="">すべて</option>
+                <option value="0">未着手</option>
+                <option value="1">進行中</option>
+                <option value="2">完了</option>
+            </select>
+            <button class="bg-green-500 text-white px-3 py-2 rounded" type="submit">検索</button>
         </form>
     </div>
     <div>
-        <p>タスク一覧</p>
+        <p class="flex justify-center pt-10 font-bold" >タスク一覧</p>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -78,7 +96,7 @@
 
         <div class="flex justify-end gap-2">
 
-    <a class="bg-blue-500 text-white px-3 py-2 rounded"
+    <a class="bg-blue-400 text-white px-3 py-2 rounded"
        href="{{ route('tasks.edit', $task) }}">
         編集
     </a>
