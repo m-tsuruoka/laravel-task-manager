@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 class TaskController extends Controller
 {
     public function index(){
-   $tasks = Task::where('user_id', auth()->id())->get();
-
-    return view('tasks.index', compact('tasks'));
+  $tasks = Task::where('user_id', auth()->id())
+   ->latest()
+   ->get();
+   return view('tasks.index', compact('tasks'));
     }
 
     public function store(Request $request)
@@ -32,7 +33,7 @@ class TaskController extends Controller
 }
  public function edit(Task $task)
     {
-        return view('task.edit', compact('todo'));
+        return view('tasks.edit', compact('task'));
     }
   public function update(Request $request, Task $task)
 {

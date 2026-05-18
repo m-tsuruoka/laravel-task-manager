@@ -16,15 +16,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/tasks', [TaskController::class, 'store'])
         ->name('tasks.store');
 
-     Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])
-    ->name('tasks.edit');
-    Route::post('/tasks/{task}/edit', [TaskController::class, 'edit'])
-    ->name('tasks.edit');
-    Route::patch('/tasks/{task}/update', [TaskController::class, 'update']);
+    Route::get('/tasks/{task}/edit', [TaskController::class, 'edit'])
+        ->name('tasks.edit');
 
-    Route::delete('/tasks/{task}/destroy', [TaskController::class, 'destroy'])
-    ->name('tasks.destroy');
+    Route::put('/tasks/{task}', [TaskController::class, 'update'])
+        ->name('tasks.update');
+
+    Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])
+        ->name('tasks.destroy');
 });
-
 
 require __DIR__.'/settings.php';
