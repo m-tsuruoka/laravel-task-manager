@@ -3,24 +3,21 @@
 
     <div class="border p-5">
         <p class="font-bold">追加フォーム</p>
+
         <form action="{{ route('tasks.store') }}" method="POST">
             @csrf
 
-            <label>タスク名：</label>
             <input
                 class="border border-gray-300 p-2 rounded mb-2"
                 type="text"
-                name="title">
-
-            <br>
-
-            <label>詳細　　：</label>
+                name="title" placeholder="タスク名" required>
+            　
             <input
                 class="border border-gray-300 p-2 rounded mb-2"
                 type="text"
-                name="description"><br>
+                name="description" placeholder="詳細"><br>
 
-            <label for="">日時</label>
+            <label for="">日時：</label>
             <input type="date" name="due_date">
             <label>ステータス</label>
             <select class="border border-gray-300 rounded px-3 py-2 mr-2" name="status">
@@ -29,7 +26,7 @@
                 <option value="2">完了</option>
             </select>
 
-            <button class="bg-green-500 text-white px-3 py-2 rounded" #000;" type="submit">登録</button>
+            <button class="bg-orange-400 text-white px-3 py-2 rounded" #000;" type="submit">登録</button>
         </form>
     </div>
 
@@ -47,7 +44,7 @@
                 <option value="1">進行中</option>
                 <option value="2">完了</option>
             </select>
-            <button class="bg-green-500 text-white px-3 py-2 rounded" type="submit">検索</button>
+            <button class="bg-orange-400 text-white px-3 py-2 rounded" type="submit">検索</button>
         </form>
     </div>
     <div>
@@ -81,13 +78,23 @@
                             </div>
 
                             <div class="mt-auto text-sm text-gray-500">
+                                @if ($task->due_date)
                                 @php
                                 $today = \Carbon\Carbon::today();
                                 $due = \Carbon\Carbon::parse($task->due_date);
                                 $diff = $today->diffInDays($due, false);
                                 @endphp
+
                                 <p>期限日：{{ $task->due_date }}</p>
+
+                                @if ($diff > 0)
                                 <p>残り{{ $diff }}日</p>
+                                @elseif ($diff == 0)
+                                <p>今日が期限</p>
+                                @else
+                                <p>{{ abs($diff) }}日超過</p>
+                                @endif
+                                @endif
 
                             </div>
 

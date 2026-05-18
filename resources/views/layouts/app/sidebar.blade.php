@@ -26,11 +26,41 @@
                     :href="route('tasks.index')"
                     :current="request()->routeIs('tasks.index')"
                     wire:navigate>
-                    {{ __('task') }}
+                    {{ __('すべてのタスク') }}
                 </flux:sidebar.item>
             </flux:sidebar.group>
         </flux:sidebar.nav>
 
+        <flux:sidebar.nav>
+            <flux:sidebar.group class="grid">
+                <flux:sidebar.item
+                    :href="route('tasks.index', ['status' => 0])"
+                    :current="request()->routeIs('tasks.index')"
+                    wire:navigate>
+                    {{ __('未着手タスク') }}
+                </flux:sidebar.item>
+            </flux:sidebar.group>
+        </flux:sidebar.nav>
+        <flux:sidebar.nav>
+            <flux:sidebar.group class="grid">
+                <flux:sidebar.item
+                    :href="route('tasks.index', ['status' => 1])"
+                    :current="request()->routeIs('tasks.index')"
+                    wire:navigate>
+                    {{ __('進行中タスク') }}
+                </flux:sidebar.item>
+            </flux:sidebar.group>
+        </flux:sidebar.nav>
+        <flux:sidebar.nav>
+            <flux:sidebar.group class="grid">
+                <flux:sidebar.item
+                    :href="route('tasks.index', ['status' => 2])"
+                    :current="request()->routeIs('tasks.index')"
+                    wire:navigate>
+                    {{ __('完了済タスク') }}
+                </flux:sidebar.item>
+            </flux:sidebar.group>
+        </flux:sidebar.nav>
         <flux:spacer />
 
         <flux:sidebar.nav>
