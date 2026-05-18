@@ -1,7 +1,7 @@
 <x-layouts::app :title="__('tasks.index')">
     <h1 class="flex justify-center text-2xl pb-5 font-bold">タスク管理</h1>
 
-    <div  class="border p-5">
+    <div class="border p-5">
         <p class="font-bold">追加フォーム</p>
         <form action="{{ route('tasks.store') }}" method="POST">
             @csrf
@@ -19,6 +19,9 @@
                 class="border border-gray-300 p-2 rounded mb-2"
                 type="text"
                 name="description"><br>
+
+            <label for="">日時</label>
+            <input type="date" name="due_date">
             <label>ステータス</label>
             <select class="border border-gray-300 rounded px-3 py-2 mr-2" name="status">
                 <option value="0">未着手</option>
@@ -34,9 +37,9 @@
         <p class="font-bold">検索</p>
         <form action="">
             <input class="border border-gray-300 p-2 rounded" type="text"
-        name="keyword"
-        value="{{ request('keyword') }}"
-        placeholder="キーワード検索"placeholder="検索キーワード">
+                name="keyword"
+                value="{{ request('keyword') }}"
+                placeholder="キーワード検索" placeholder="検索キーワード">
 
             <select class="border border-gray-300 rounded px-3 py-2" name="status">
                 <option value="">すべて</option>
@@ -48,16 +51,16 @@
         </form>
     </div>
     <div>
-        <p class="flex justify-center pt-10 font-bold" >タスク一覧</p>
+        <p class="flex justify-center pt-10 font-bold">タスク一覧</p>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
-                   <div class="grid grid-cols-3 gap-4">
+                    <div class="grid grid-cols-3 gap-4">
 
-@forelse ($tasks as $task)
-    <div class="
+                        @forelse ($tasks as $task)
+                        <div class="
         @if ($task->status == 0)
             bg-gray-100
         @elseif ($task->status == 1)
@@ -69,56 +72,63 @@
         p-4 rounded h-full flex flex-col
     ">
 
-        <div class="font-bold">
-            {{ $task->title }}
-        </div>
+                            <div class="font-bold">
+                                {{ $task->title }}
+                            </div>
 
-        <div class="text-sm text-gray-500">
-            {{ $task->description }}
-        </div>
+                            <div class="text-sm text-gray-500">
+                                {{ $task->description }}
+                            </div>
 
-        <div class="mt-auto text-sm text-gray-500">
-            {{ $task->created_at->format('Y-m-d') }}
-        </div>
+                            <div class="mt-auto text-sm text-gray-500">
+                                @php
+                                $today = \Carbon\Carbon::today();
+                                $due = \Carbon\Carbon::parse($task->due_date);
+                                $diff = $today->diffInDays($due, false);
+                                @endphp
+                                <p>期限日：{{ $task->due_date }}</p>
+                                <p>残り{{ $diff }}日</p>
 
-        <div class="flex justify-end">
-            <form action="{{ route('tasks.updateStatus', $task) }}" method="POST">
-    @csrf
-    @method('PATCH')
+                            </div>
 
-    <select name="status" onchange="this.form.submit()">
-        <option value="0" {{ $task->status == 0 ? 'selected' : '' }}>未着手</option>
-        <option value="1" {{ $task->status == 1 ? 'selected' : '' }}>進行中</option>
-        <option value="2" {{ $task->status == 2 ? 'selected' : '' }}>完了</option>
-    </select>
-</form>
-        </div>
+                            <div class="flex justify-end">
+                                <form action="{{ route('tasks.updateStatus', $task) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
 
-        <div class="flex justify-end gap-2">
+                                    <select name="status" onchange="this.form.submit()">
+                                        <option value="0" {{ $task->status == 0 ? 'selected' : '' }}>未着手</option>
+                                        <option value="1" {{ $task->status == 1 ? 'selected' : '' }}>進行中</option>
+                                        <option value="2" {{ $task->status == 2 ? 'selected' : '' }}>完了</option>
+                                    </select>
+                                </form>
+                            </div>
 
-    <a class="bg-blue-400 text-white px-3 py-2 rounded"
-       href="{{ route('tasks.edit', $task) }}">
-        編集
-    </a>
+                            <div class="flex justify-end gap-2">
 
-    <form action="{{ route('tasks.destroy', $task) }}" method="POST">
-        @csrf
-        @method('DELETE')
+                                <a class="bg-blue-400 text-white px-3 py-2 rounded"
+                                    href="{{ route('tasks.edit', $task) }}">
+                                    編集
+                                </a>
 
-        <button class="bg-red-500 text-white px-3 py-2 rounded"
-                onclick="return confirm('本当に削除しますか？')">
-            削除
-        </button>
-            </form>
-        </div>
+                                <form action="{{ route('tasks.destroy', $task) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
 
-    </div>
+                                    <button class="bg-red-500 text-white px-3 py-2 rounded"
+                                        onclick="return confirm('本当に削除しますか？')">
+                                        削除
+                                    </button>
+                                </form>
+                            </div>
 
-@empty
-    <div>タスクがありません</div>
-@endforelse
+                        </div>
 
-</div>
+                        @empty
+                        <div>タスクがありません</div>
+                        @endforelse
+
+                    </div>
 
                 </div>
             </div>

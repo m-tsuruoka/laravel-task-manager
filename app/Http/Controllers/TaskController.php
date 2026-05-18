@@ -34,6 +34,7 @@ class TaskController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'max:255'],
             'description' => ['nullable'],
+            'due_date' => ['date'],
             'status' => ['required', 'in:0,1,2'],
         ]);
 
@@ -41,6 +42,7 @@ class TaskController extends Controller
             'title' => $validated['title'],
             'description' => $validated['description'],
             'status' => $validated['status'],
+            'due_date' => $request->due_date,
             'user_id' => auth()->id(),
         ]);
 
@@ -52,9 +54,12 @@ class TaskController extends Controller
     }
     public function update(Request $request, Task $task)
     {
+
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
+            'status' => ['required', 'in:0,1,2'],
+            'due_date' => ['date'],
             'status' => ['required', 'in:0,1,2'],
         ]);
 
