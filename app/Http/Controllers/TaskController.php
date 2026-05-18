@@ -53,4 +53,13 @@ public function destroy(Task $task)
 
         return redirect()->route('tasks.index');
     }
+
+    public function updateStatus(Request $request, Task $task)
+{
+    $task->update([
+        'status' => $request->status
+    ]);
+
+    return redirect()->back();
+}
 }

@@ -64,7 +64,16 @@
         </div>
 
         <div class="flex justify-end">
-            {{ \App\Models\Task::$statuses[$task->status] }}
+            <form action="{{ route('tasks.updateStatus', $task) }}" method="POST">
+    @csrf
+    @method('PATCH')
+
+    <select name="status" onchange="this.form.submit()">
+        <option value="0" {{ $task->status == 0 ? 'selected' : '' }}>未着手</option>
+        <option value="1" {{ $task->status == 1 ? 'selected' : '' }}>進行中</option>
+        <option value="2" {{ $task->status == 2 ? 'selected' : '' }}>完了</option>
+    </select>
+</form>
         </div>
 
         <div class="flex justify-end gap-2">

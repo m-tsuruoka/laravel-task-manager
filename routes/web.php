@@ -26,4 +26,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('tasks.destroy');
 });
 
+Route::patch('/tasks/{task}/status', [TaskController::class, 'updateStatus'])
+    ->name('tasks.updateStatus');
 require __DIR__.'/settings.php';

@@ -23,12 +23,6 @@
         name="description"
         value="{{ old('description', $task->description)}}"
     ><br>
-    <label>ステータス</label>
-    <select name="status">
-        <option value="0">未着手</option>
-        <option value="1">進行中</option>
-        <option value="2">完了</option>
-    </select>
 
     <button type="submit">更新</button>
 </form>
