@@ -16,6 +16,7 @@ return new class extends Migration
     $table->string('title', 100);
     $table->text('description')->nullable();
     $table->tinyInteger('status')->default(0);
+    $table->date('due_date')->nullable();
     $table->foreignId('user_id')->constrained()->onDelete('cascade');
     $table->timestamps();
 });
