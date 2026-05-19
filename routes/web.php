@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::patch('/tasks/{task}/status', [TaskController::class, 'updateStatus'])
     ->name('tasks.updateStatus');
-require __DIR__.'/settings.php';
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [DashboardController::class, 'index'])->name('admin.index');
+    Route::get('/admin/{id}/edit', [DashboardController::class, 'edit']);
+    Route::patch('/admin/{user}/role', [DashboardController::class, 'updateRole']);
+
+    Route::delete('/admin/{user}', [DashboardController::class, 'destroy']);
+});
+require __DIR__ . '/settings.php';

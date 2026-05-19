@@ -1,5 +1,5 @@
 <x-layouts::app :title="__('tasks.index')">
-    <h1>タスク管理</h1>
+    <!-- <h1>タスク管理</h1>
 
     <div>
         <p>編集フォーム</p>
@@ -35,6 +35,33 @@
 
     <button type="submit">更新</button>
 </form>
-    </div>
+    </div> -->
+ <div class="border p-5">
+        <p class="font-bold">編集フォーム</p>
 
+        <form action="{{ route('tasks.update', $task) }}" method="POST">
+            @csrf
+
+            <input
+                class="border border-gray-300 p-2 rounded mb-2"
+                type="text"
+                name="title" placeholder="タスク名" value="{{old('title', $task->title)}}" required>
+            　
+            <input
+                class="border border-gray-300 p-2 rounded mb-2"
+                type="text"
+                name="description" placeholder="詳細" value="{{old('description', $task->description)}}"><br>
+
+            <label for="">日時：</label>
+            <input type="date" name="due_date" value="{{old('ue_date', $task->due_date)}}"  >
+            <label>ステータス</label>
+            <select class="border border-gray-300 rounded px-3 py-2 mr-2" name="status" value="{{old('status', $task->status)}}">
+                <option value="0">未着手</option>
+                <option value="1">進行中</option>
+                <option value="2">完了</option>
+            </select>
+
+            <button class="bg-orange-400 text-white px-3 py-2 rounded" #000;" type="submit">更新</button>
+        </form>
+    </div>
 </x-layouts::app>

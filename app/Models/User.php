@@ -29,6 +29,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'id_admin'=> 'boolean',
         ];
     }
 
@@ -43,4 +44,8 @@ class User extends Authenticatable
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+    public function tasks()
+{
+    return $this->hasMany(Task::class);
+}
 }
