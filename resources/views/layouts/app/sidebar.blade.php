@@ -61,6 +61,19 @@
                 </flux:sidebar.item>
             </flux:sidebar.group>
         </flux:sidebar.nav>
+        
+        @if (auth()->user()->is_admin)
+        <flux:sidebar.nav>
+            <flux:sidebar.group class="grid">
+                <flux:sidebar.item
+                    :href="route('admin.index')"
+                    :current="request()->routeIs('admin.index')"
+                    wire:navigate>
+                    {{ __('管理者画面') }}
+                </flux:sidebar.item>
+            </flux:sidebar.group>
+        </flux:sidebar.nav>
+        @endif
         <flux:spacer />
 
         <flux:sidebar.nav>

@@ -47,11 +47,13 @@
             <button class="bg-orange-400 text-white px-3 py-2 rounded" type="submit">検索</button>
         </form>
     </div>
+
+    <!-- 一覧 -->
     <div>
         <p class="flex justify-center pt-10 font-bold">タスク一覧</p>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 break-words">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
 
                     <div class="grid grid-cols-3 gap-4">
@@ -61,9 +63,9 @@
         @if ($task->status == 0)
             bg-gray-100
         @elseif ($task->status == 1)
-            bg-blue-100
-        @elseif ($task->status == 2)
             bg-green-100
+        @elseif ($task->status == 2)
+            bg-red-100
         @endif
 
         p-4 rounded h-full flex flex-col
